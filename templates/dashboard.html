@@ -17,17 +17,21 @@
 </div>
 <div class="section-title"><strong>Featured places</strong><a href="{{ url_for('main.places') }}">View all →</a></div>
 <div class="cards">
-  <a class="card" href="{{ url_for('main.places') }}">
-      <div class="card-art">
-        Seim Reab
-          <img src="https://via.placeholder.com/300x200" alt="Seim Reab">
-      </div>
-      <div class="card-body">
-          <h3>Blue horizons</h3>
-          <p>Coastal escapes</p>
-          <small>Explore →</small>
-      </div></a>
-  <a class="card" href="{{ url_for('main.places') }}"><div class="card-art"></div><div class="card-body"><h3>Old town stories</h3><p>History & culture</p><small>Explore →</small></div></a>
-  <a class="card" href="{{ url_for('main.places') }}"><div class="card-art"></div><div class="card-body"><h3>Quiet valleys</h3><p>Nature trails</p><small>Explore →</small></div></a>
+  {% for place in places %}
+  <a class="card" href="{{ url_for('main.place_detail', place_id=place.id) }}">
+    <div class="card-art">
+      {% if place.image %}
+      <img src="{{ url_for('static', filename='images/' + place.image) }}" alt="{{ place.name }}">
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <h3>{{ place.name }}</h3>
+      <p>{{ place.city or 'Unknown city' }} · {{ place.category or 'Place' }}</p>
+      <small>View detail →</small>
+    </div>
+  </a>
+  {% else %}
+  <p class="mono">No places have been added yet.</p>
+  {% endfor %}
 </div>
 {% endblock %}

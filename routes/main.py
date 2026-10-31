@@ -14,7 +14,8 @@ def home():
 @main.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    places = Place.query.order_by(Place.id.desc()).limit(6).all()
+    return render_template("dashboard.html", places=places)
 
 @main.route("/profile")
 @login_required

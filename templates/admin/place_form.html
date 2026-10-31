@@ -1,28 +1,129 @@
-{% extends "base.html" %}
-{% block title %}{{ 'Edit' if place else 'Add' }} place{% endblock %}
-{% block content %}
-  <div class="glass form-box wide">
-    <h2>{{ 'Edit place' if place else 'Add new place' }}</h2>
+{% extends "base.html" %} {% block title %}{{ 'Edit' if place else 'Add' }}
+place{% endblock %} {% block content %}
+<div
+  class="card bg-dark border-secondary shadow-sm mx-auto"
+  style="max-width: 720px"
+>
+  <div class="card-body p-4">
+    <h2 class="h3 mb-4">{{ 'Edit place' if place else 'Add new place' }}</h2>
 
-    <form method="POST" enctype="multipart/form-data">
-      <input type="text" name="name" placeholder="Place name" value="{{ place.name if place else '' }}" required>
-      <input type="text" name="city" placeholder="City" value="{{ place.city if place else '' }}">
-      <input type="text" name="category" placeholder="Category (temple, beach...)" value="{{ place.category if place else '' }}">
-      <textarea name="description" rows="5" placeholder="Description">{{ place.description if place else '' }}</textarea>
-      <input type="text" name="best_time" placeholder="Best time to visit" value="{{ place.best_time if place else '' }}">
-      <input type="text" name="price" placeholder="Entry price" value="{{ place.price if place else '' }}">
-      <input type="text" name="latitude" placeholder="Latitude (e.g. 13.4125)" value="{{ place.latitude if place else '' }}" required>
-      <input type="text" name="longitude" placeholder="Longitude (e.g. 103.8670)" value="{{ place.longitude if place else '' }}" required>
+    <form method="POST" enctype="multipart/form-data" class="row g-3">
+      <div class="col-md-8">
+        <label class="form-label text-white" for="name">Place name</label
+        ><input
+          class="form-control"
+          id="name"
+          type="text"
+          name="name"
+          value="{{ place.name if place else '' }}"
+          required
+        />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label text-white" for="category">Category</label
+        ><input
+          class="form-control"
+          id="category"
+          type="text"
+          name="category"
+          value="{{ place.category if place else '' }}"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label text-white" for="city">City</label
+        ><input
+          class="form-control"
+          id="city"
+          type="text"
+          name="city"
+          value="{{ place.city if place else '' }}"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label text-white" for="price">Entry price</label
+        ><input
+          class="form-control"
+          id="price"
+          type="text"
+          name="price"
+          value="{{ place.price if place else '' }}"
+        />
+      </div>
+      <div class="col-12">
+        <label class="form-label text-white" for="description">Description</label
+        ><textarea
+          class="form-control"
+          id="description"
+          name="description"
+          rows="5"
+        >
+{{ place.description if place else '' }}</textarea
+        >
+      </div>
+      <div class="col-md-4">
+        <label class="form-label text-white" for="best_time">Best time to visit</label
+        ><input
+          class="form-control"
+          id="best_time"
+          type="text"
+          name="best_time"
+          value="{{ place.best_time if place else '' }}"
+        />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label text-white" for="latitude">Latitude</label
+        ><input
+          class="form-control"
+          id="latitude"
+          type="text"
+          name="latitude"
+          placeholder="13.4125"
+          value="{{ place.latitude if place else '' }}"
+          required
+        />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label text-white" for="longitude">Longitude</label
+        ><input
+          class="form-control"
+          id="longitude"
+          type="text"
+          name="longitude"
+          placeholder="103.8670"
+          value="{{ place.longitude if place else '' }}"
+          required
+        />
+      </div>
 
       {% if place and place.image %}
-        <p>Current image:</p>
-        <img src="{{ url_for('static', filename='images/' + place.image) }}" width="160">
+      <p class="mb-2 text-white">Current image:</p>
+      <img
+        class="rounded mb-2"
+        src="{{ url_for('static', filename='images/' + place.image) }}"
+        width="160"
+        alt="{{ place.name }}"
+      />
       {% endif %}
-      <label>Image (jpg, png, webp, max 5 MB)</label>
-      <input type="file" name="image" accept="image/*">
+      <div class="col-12">
+        <label class="form-label text-white" for="image"
+          >Image (jpg, png, webp, max 5 MB)</label
+        >
+        <input
+          class="form-control"
+          id="image"
+          type="file"
+          name="image"
+          accept="image/*"
+        />
+      </div>
 
-      <button type="submit">Save</button>
-      <a class="btn" href="{{ url_for('admin.places') }}">Cancel</a>
+      <div class="col-12 d-flex gap-2">
+        <button class="btn btn-warning" type="submit">Save</button>
+        <a class="btn btn-outline-light" href="{{ url_for('admin.places') }}"
+          >Cancel</a
+        >
+      </div>
     </form>
   </div>
+</div>
 {% endblock %}
