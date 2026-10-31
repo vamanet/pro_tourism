@@ -1,0 +1,2 @@
+{% extends "base.html" %}{% block title %}Profile{% endblock %}
+{% block content %}<div class="page-heading"><h1>Profile</h1></div><section class="panel detail-copy"><h2>{{ session['user'] }}</h2><p>Your saved travel profile is ready for the next adventure.</p><a class="button" href="{{ url_for('main.places') }}">Browse places</a></section>{% endblock %}

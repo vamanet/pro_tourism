@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if place else 'Add' }} place{% endblock %}
+{% block content %}
+  <div class="glass form-box wide">
+    <h2>{{ 'Edit place' if place else 'Add new place' }}</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Place name" value="{{ place.name if place else '' }}" required>
+      <input type="text" name="city" placeholder="City" value="{{ place.city if place else '' }}">
+      <input type="text" name="category" placeholder="Category (temple, beach...)" value="{{ place.category if place else '' }}">
+      <textarea name="description" rows="5" placeholder="Description">{{ place.description if place else '' }}</textarea>
+      <input type="text" name="best_time" placeholder="Best time to visit" value="{{ place.best_time if place else '' }}">
+      <input type="text" name="price" placeholder="Entry price" value="{{ place.price if place else '' }}">
+      <input type="text" name="latitude" placeholder="Latitude (e.g. 13.4125)" value="{{ place.latitude if place else '' }}" required>
+      <input type="text" name="longitude" placeholder="Longitude (e.g. 103.8670)" value="{{ place.longitude if place else '' }}" required>
+
+      {% if place and place.image %}
+        <p>Current image:</p>
+        <img src="{{ url_for('static', filename='images/' + place.image) }}" width="160">
+      {% endif %}
+      <label>Image (jpg, png, webp, max 5 MB)</label>
+      <input type="file" name="image" accept="image/*">
+
+      <button type="submit">Save</button>
+      <a class="btn" href="{{ url_for('admin.places') }}">Cancel</a>
+    </form>
+  </div>
+{% endblock %}

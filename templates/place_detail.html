@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}{{ place.name }}{% endblock %}
+{% block content %}
+<div class="page-heading"><h1>Place detail</h1><div class="actions">↗ ↓</div></div>
+<section class="panel detail-grid"><div class="detail-art"></div><div class="detail-copy"><h2>{{ place.name }}</h2><p>{{ place.description or 'A memorable destination waiting to be explored.' }}</p><div class="meta"><span>Location<br><strong>{{ place.city or '—' }}</strong></span><span>Best time<br><strong>{{ place.best_time or 'Anytime' }}</strong></span><span>Category<br><strong>{{ place.category or 'Place' }}</strong></span><span>Price<br><strong>{{ place.price or 'Free' }}</strong></span></div><a class="button" href="{{ url_for('main.map_page') }}">Get directions</a></div></section>
+<div class="section-title" style="margin-top:14px"><strong>Location</strong></div><div class="panel" style="padding:7px"><div class="map-placeholder">[MAP PREVIEW]</div></div>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Explore{% endblock %} · Explore</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('main.dashboard') }}">Explore<span>.</span></a>
+<nav class="top-nav">
+  <a href="{{ url_for('main.home') }}">Home</a>
+  <a href="{{ url_for('main.places') }}">Places</a>
+  <a href="{{ url_for('main.map_page') }}">Map</a>
+
+  {% if session.user %}
+    {% if session.role == 'admin' %}
+      <a href="{{ url_for('admin.places') }}">Admin</a>
+    {% endif %}
+    <span>Hi, {{ session.user }}</span>
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+  {% else %}
+    <a href="{{ url_for('auth.login') }}">Log in</a>
+    <a href="{{ url_for('auth.register') }}">Register</a>
+  {% endif %}
+  </nav>
+  </header>
+  <main class="page">
+  {% with messages = get_flashed_messages() %}
+  {% for message in messages %}
+    <div class="flash glass">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+  {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

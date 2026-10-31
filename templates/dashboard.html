@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="panel hero">
+  <h2>Discover places worth the trip</h2>
+  <p>Find memorable places, plan your next adventure, and keep every destination in one simple guide.</p>
+  <form class="search" action="{{ url_for('main.places') }}">
+    <input name="q" placeholder="Search a place or city..." aria-label="Search a place or city">
+    <button type="submit">Explore</button>
+  </form>
+</section>
+<div class="chips">
+  <a class="chip active" href="{{ url_for('main.places') }}">All places</a>
+  <a class="chip" href="{{ url_for('main.places', category='landmark') }}">Landmarks</a>
+  <a class="chip" href="{{ url_for('main.places', category='nature') }}">Nature</a>
+  <a class="chip" href="{{ url_for('main.places', category='culture') }}">Culture</a>
+</div>
+<div class="section-title"><strong>Featured places</strong><a href="{{ url_for('main.places') }}">View all →</a></div>
+<div class="cards">
+  <a class="card" href="{{ url_for('main.places') }}">
+      <div class="card-art">
+        Seim Reab
+          <img src="https://via.placeholder.com/300x200" alt="Seim Reab">
+      </div>
+      <div class="card-body">
+          <h3>Blue horizons</h3>
+          <p>Coastal escapes</p>
+          <small>Explore →</small>
+      </div></a>
+  <a class="card" href="{{ url_for('main.places') }}"><div class="card-art"></div><div class="card-body"><h3>Old town stories</h3><p>History & culture</p><small>Explore →</small></div></a>
+  <a class="card" href="{{ url_for('main.places') }}"><div class="card-art"></div><div class="card-body"><h3>Quiet valleys</h3><p>Nature trails</p><small>Explore →</small></div></a>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Manage places{% endblock %}
+{% block content %}
+  <div class="bar">
+    <h1>Manage places</h1>
+    <a class="btn" href="{{ url_for('admin.add_place') }}">+ Add place</a>
+  </div>
+
+  <div class="glass table-wrap">
+    <table>
+      <tr><th>Image</th><th>Name</th><th>City</th><th>Category</th><th>Actions</th></tr>
+      {% for p in places %}
+      <tr>
+        <td>
+          {% if p.image %}
+            <img src="{{ url_for('static', filename='images/' + p.image) }}" width="70">
+          {% endif %}
+        </td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.city }}</td>
+        <td>{{ p.category }}</td>
+        <td>
+          <a class="btn" href="{{ url_for('admin.edit_place', place_id=p.id) }}">Edit</a>
+          <form method="POST" style="display:inline"
+                action="{{ url_for('admin.delete_place', place_id=p.id) }}"
+                onsubmit="return confirm('Delete {{ p.name }}?')">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">No places yet.</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}
